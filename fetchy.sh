@@ -1,6 +1,17 @@
 #!/bin/bash
-# If passed down, set the branch name
-[[ -z $1 ]] && checkout='master' || checkout=$1
+checkout="master"
+delete="-d"
+
+while getopts ":b:D" opt; do
+  case ${opt} in
+    b ) checkout=$OPTARG ;;
+    D ) delete="-D" ;;
+    \? )
+      echo "Invalid option: $OPTARG" 1>&2 ;;
+    : )
+      echo "Invalid option: $OPTARG requires an argument" 1>&2 ;;
+  esac
+done
 
 # A small animation to display while system fetches
 loader=("Fetching   " "Fetching.  " "Fetching.. " "Fetching...")
@@ -41,6 +52,6 @@ git branch -vv | while IFS= read -r line ; do
       else
         branch="${array[0]}"
       fi
-      git branch -d $branch
+      git branch $delete $branch
     fi
 done

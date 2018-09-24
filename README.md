@@ -7,9 +7,8 @@ Clone it, chmod it, run it.
 
 ## Usage
 
-- Clone the repository
-- `chmod +x` it
-- Run it! It has an optional argument for a branch to check out to, the why explained below
+- It has an optional argument for a branch to check out to, the why explained below
+- Another optional argument is `-D`, to force delete branches
 - [optional] create a symbolic link with `ln fetchy.sh /usr/local/bin/`
 - [optional] add an alias `echo 'alias fetchy="fetchy"' >> ~/.bashrc`
 
