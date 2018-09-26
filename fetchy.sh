@@ -1,11 +1,13 @@
 #!/bin/bash
 checkout="master"
 delete="-d"
+print=''
 
-while getopts ":b:D" opt; do
+while getopts ":b:Dp" opt; do
   case ${opt} in
     b ) checkout=$OPTARG ;;
     D ) delete="-D" ;;
+    p ) print="yes" ;;
     \? )
       echo "Invalid option: $OPTARG" 1>&2 ;;
     : )
@@ -52,6 +54,10 @@ git branch -vv | while IFS= read -r line ; do
       else
         branch="${array[0]}"
       fi
-      git branch $delete $branch
+      if [[ ${print} ]]; then
+        echo "Found orphaned branch ${branch}"
+      else
+        git branch $delete $branch
+      fi
     fi
 done
