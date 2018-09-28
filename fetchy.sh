@@ -36,6 +36,7 @@ elif [[ $ISGIT != "true" ]]; then
   return 1
 fi
 
+echo "Checking out to $checkout"
 git checkout $checkout &>/dev/null
 fetcher &
 pid=$!
