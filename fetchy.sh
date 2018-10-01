@@ -3,15 +3,23 @@ checkout="master"
 delete="-d"
 print=''
 
-while getopts ":b:Dp" opt; do
+usage(){
+    echo
+    echo " Usage: $0 [options]"
+    echo
+    echo "   -b [branch]    checkout to [branch] before starting. Defaults to master"
+    echo "   -D             force-deletes branches instead of soft-delete"
+    echo "   -p             prints the branches instead of deleting them"
+}
+while getopts ":b:Dhp" opt; do
   case ${opt} in
-    b ) checkout=$OPTARG ;;
+    b ) checkout=$OPTARG; echo "A" ;;
     D ) delete="-D" ;;
     p ) print="yes" ;;
-    \? )
-      echo "Invalid option: $OPTARG" 1>&2 ;;
     : )
-      echo "Invalid option: $OPTARG requires an argument" 1>&2 ;;
+      echo " Invalid option: $OPTARG requires an argument"; usage ; exit 1 ;;
+    \? )
+      echo " Invalid option: $OPTARG"; usage; exit 1 ;;
   esac
 done
 

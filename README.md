@@ -10,7 +10,7 @@ Clone it, chmod it, run it.
 - Also, the `-p` parameter can be specified to **print** instead of **delete** each branch
 - Another optional argument is `-D`, to force delete branches
 - [optional] create a symbolic link with `ln fetchy.sh /usr/local/bin/`
-- [optional] add an alias `echo 'alias fetchy="fetchy"' >> ~/.bashrc`
+- [optional] add an alias `echo -e '\nalias fetchy="fetchy"' >> ~/.bashrc`
 
 Just run it inside a git folder - it will perform a `git fetch -p`, and then `git branch -vv`. It regexps through the ones that contain the string `: gone]`, which indicates that they are no longer present in the upstream, and remove them.
 The script won't run if started from a folder that is not a git repository, or from inside the `.git` folder
