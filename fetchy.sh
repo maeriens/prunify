@@ -13,7 +13,7 @@ usage(){
 }
 while getopts ":b:Dhp" opt; do
   case ${opt} in
-    b ) checkout=$OPTARG; echo "A" ;;
+    b ) checkout=$OPTARG ;;
     D ) delete="-D" ;;
     p ) print="yes" ;;
     : )
@@ -45,10 +45,10 @@ elif [[ $ISGIT != "true" ]]; then
 fi
 
 echo "Checking out to $checkout"
-git checkout $checkout &>/dev/null
+git checkout $checkout
 fetcher &
 pid=$!
-# fetch -p
+
 git fetch -p &>/dev/null
 kill $pid
 wait $pid 2>/dev/null
