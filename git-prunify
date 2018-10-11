@@ -38,10 +38,10 @@ fetcher(){
 ISGIT=$(git rev-parse --is-inside-work-tree 2>/dev/null)
 if [[ $ISGIT == "false" ]]; then
   echo "### ERROR: This script should not be run inside .git folder ###"
-  return 1
+  exit 1
 elif [[ $ISGIT != "true" ]]; then
   echo "### Not inside a git repository ###"
-  return 1
+  exit 1
 fi
 
 echo "Checking out to $checkout"
