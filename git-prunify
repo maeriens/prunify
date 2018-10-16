@@ -1,5 +1,5 @@
 #!/bin/bash
-checkout="master"
+checkout=""
 delete="-d"
 print=''
 
@@ -44,8 +44,11 @@ elif [[ $ISGIT != "true" ]]; then
   exit 1
 fi
 
-echo "Checking out to $checkout"
-git checkout $checkout
+if [[ ! -z "$checkout" ]]; then
+  echo "Checking out to $checkout"
+  git checkout $checkout
+fi
+
 fetcher &
 pid=$!
 
@@ -70,3 +73,4 @@ git branch -vv | while IFS= read -r line ; do
       fi
     fi
 done
+
