@@ -5,21 +5,15 @@ A small bash script for cleaning your local repository of orphaned branches :fal
 Clone it, chmod it, copy it.
 
 ## Installation
-
-As a git custom command (Recommended):
+This will make the script executable with git. You can also add some autocomplete for it.
 
 - Clone the repo
-- Make it executable with `chmod +x git-prunify` (or `chmod +x fetchy`)
-- Copy it to `/usr/local/bin/` (With `ln` if you maintain the repo, or `cp` if you delete it)
+- Make it executable with `chmod +x git-prunify`
+  - You can copy it to `/usr/local/bin/`, as this folder is already in the system's PATH variable
+  - You can keep it in the cloned folder but you have to add it to the PATH (`echo -e '\n~/Repos/prunify' >> ~/.zshrc`)
 - Done! You should now be able to cast `git prunify` as a git command
 
-As a system-wide script:
-
-- Clone the repo
-- [Optional] Rename `git-prunify` to just `prunify` to avoid confusion with `git` commands and autocomplete
-- Make it executable with `chmod +x git-prunify` (or `chmod +x prunify`)
-- Either create a link with `ln` or copy with `cp`: `prunify.sh /usr/local/bin/`
-- Add an alias to `.bashrc`: `echo -e '\nalias prunify="prunify"' >> ~/.bashrc`
+It seems that on most Linux distros, autocomplete works out of the box. If it does not work, or you are on OSX, with `zsh` you can add `zstyle ':completion:*:*:git:*' user-commands prunify:'Remove outdated branches'` to the end of the `.zshrc` to have it show in the autocomplete section
 
 ## Usage
 
@@ -27,10 +21,10 @@ As a system-wide script:
 - Also, the `-p` parameter can be specified to **print** instead of **delete** each branch
 - Another optional argument is `-D`, to force delete branches
 
-Just run it inside a git folder - it will perform a `git fetch -p`, and then `git branch -vv`. It regexps through the ones that contain the string `: gone]`, which indicates that they are no longer present in the upstream, and remove them.
-The script won't run if started from a folder that is not a git repository, or from inside the `.git` folder
+Just run it inside a git folder - it will perform a `git fetch -p`, and then `git branch -vv`. It *regexps* through the ones that contain the string `: gone]`, which indicates that they are no longer present in the upstream, and removes them.
+The script will not run if started from outside a git repository, or from inside the `.git` folder
 
-You can specify a branch to checkout to first via the `-b` argument (E.g: `-b integration`, defaults to `master`), to avoid the error of attempting & failing to delete the branch you are standing on if it was been deleted from the upstream. If you deleted master... well. :boom:
+You can specify a branch to checkout to first via the `-b` argument *(E.g: `-b integration`)*, to avoid the error of attempting & failing to delete the branch you are standing on if it was removed from the upstream. If you try to delete the current branch... well. :boom:
 
 ## The loader function
 
@@ -38,4 +32,5 @@ Was basically copied from this [video](https://www.youtube.com/watch?v=93i8txD0H
 
 ## The 'create a custom git command' option
 
-Taken from [here](http://thediscoblog.com/blog/2014/03/29/custom-git-commands-in-3-steps/)
+Originally from [here](http://thediscoblog.com/blog/2014/03/29/custom-git-commands-in-3-steps/)
+But that site seems to be old, so refer to [this one](https://gitbetter.substack.com/p/automate-repetitive-tasks-with-custom)
